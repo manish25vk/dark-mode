@@ -1,0 +1,132 @@
+html {
+    height: 100%;
+    font-family: 'Montserrat';
+
+    display: grid;
+    align-items: center;
+    justify-items: center;
+
+    --bg: #F6F6F6;
+    --bg-panel: #E4E4E4;
+    --color-headings: #3A7EF6;
+    --color-text: #444444;
+}
+
+
+html[data-theme='dark'] {
+    /* see html, set to 'light' by default */
+    --bg: #363636;
+    --bg-panel: #444444;
+    --color-headings: #3A7EF6;
+    --color-text: #E4E4E4;
+}
+
+html.transition,
+html.transition *,
+html.transition *::before,
+html.transition *::after {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
+}
+
+body {
+    background: var(--bg);
+}
+
+.container {
+    background: var(--bg-panel);
+    margin: 5em;
+    padding: 5em;
+    border-radius: 25px;
+
+    display: grid;
+    grid-template-columns: 80% auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:  
+        "title toggle"
+        "content content";
+
+    h1 {
+        margin: 0;
+        color: var(--color-headings);
+        grid-area: title;
+        align-self: end;
+    }
+
+    p {
+        color: var(--color-text);
+        line-height: 1.6;
+        grid-area: content;
+
+        font-size: 1.2em;
+        margin-top: 2em;
+    }
+}
+
+/*  #############
+    toggle switch 
+    #############   */
+
+
+.toggle-container {
+    grid-area: toggle;
+}
+
+/*
+  - the original checkbox is reduced in size and hidden
+  - the toggle is built through the label element and a pseudo element
+  - the toggle text is indented out of view
+*/
+
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 80px;
+	height: 40px;
+	background: grey;
+	display: block;
+	border-radius: 80px;
+	position: relative;
+}
+
+/* switch inside */
+label::after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 30px;
+	height: 30px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+/* when checked */
+input:checked + label {
+	background: var(--color-headings);
+}
+
+/* 
+    - a simple transform: translateX would work but that interferes with the
+    animation that expands the switch in the active state
+    - move it off screen to the right, minus the margin
+    - pull it back 100% to the left
+    - the width now expands correctly
+*/
+
+input:checked + label::after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+label:active::after {
+	width: 45px;
+}
+
