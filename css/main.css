@@ -25,10 +25,10 @@ html.transition,
 html.transition *,
 html.transition *::before,
 html.transition *::after {
-  -webkit-transition: all 750ms !important;
-  transition: all 750ms !important;
-  -webkit-transition-delay: 0 !important;
-          transition-delay: 0 !important;
+  -webkit-transition: all 750ms;
+  transition: all 750ms;
+  -webkit-transition-delay: 0;
+          transition-delay: 0;
 }
 
 body {
